@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found - Chandigarh University</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- This is the new, modern navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+           <a href="index.html" class="navbar-logo">Chandigarh University</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="report-lost.html" class="nav-link btn-nav-lost">Report Lost</a>
+                <a href="report-found.html" class="nav-link btn-nav-found">Report Found</a>
+            </div>
+        </div>
+    </nav>
+    <div class="content-pusher"></div> 
+
+    <!-- === NEW HERO SECTION === -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Lost Something? Found Something?</h1>
+            <p class="hero-subtitle">Report items and browse the campus feeds below.</p>
+            <div class="hero-buttons">
+                <a href="report-lost.html" class="btn hero-btn btn-lost">
+                    <!-- Icon: Magnifying Glass -->
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    I Lost Something
+                </a>
+                <a href="report-found.html" class="btn hero-btn btn-found">
+                    <!-- Icon: Eye -->
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    I Found Something
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- === END OF NEW HERO SECTION === -->
+
+    <main class="container">
+        <!-- Two-Column Feed Layout -->
+        <div class="feed-container">
+            
+            <!-- Lost Items Feed -->
+            <section class="feed-column">
+                <h2 class="feed-title lost-title">
+                    <!-- Icon: Frown -->
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                    Recently Lost
+                </h2>
+                <div id="lost-gallery-container" class="gallery-container">
+                    <!-- Lost items will be loaded here by home.js -->
+                </div>
+            </section>
+            
+            <!-- Found Items Feed -->
+            <section class="feed-column">
+                <h2 class="feed-title found-title">
+                    <!-- Icon: Smile -->
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                    Recently Found
+                </h2>
+                <div id="found-gallery-container" class="gallery-container">
+                    <!-- Found items will be loaded here by home.js -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+    
+    <script src="home.js"></script>
+</body>
+</html>
+

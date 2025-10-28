@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found - Chandigarh University</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="index.html" class="navbar-logo">Chandigarh University</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="report-lost.html" class="nav-link btn-nav-lost">Report Lost</a>
+            <a href="report-found.html" class="nav-link btn-nav-found">Report Found</a>
+        </div>
+    </div>
+</nav>
+<div class="content-pusher"></div>
+    <main class="container">
+        <section class="form-section">
+            <h2>Report a Found Item</h2>
+            <form id="found-form">
+                <div class="form-group">
+                    <label for="found-item-name">Item Name</label>
+                    <input type="text" id="found-item-name" placeholder="e.g., Set of Keys" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="found-category">Category</label>
+                    <select id="found-category" required>
+                        <option value="">-- Select a Category --</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="books">Books/Notes</option>
+                        <option value="id-card">ID Card / Wallet</option>
+                        <option value="apparel">Apparel (Jacket, etc.)</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="found-location">Location Found</label>
+                    <input type="text" id="found-location" placeholder="e.g., Food Court, Table 5" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="found-date">Date Found</label>
+                    <input type="date" id="found-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="found-image">Upload Image</label>
+                    <input type="file" id="found-image" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label for="found-description">Detailed Description</label>
+                    <textarea id="found-description" rows="3" placeholder="e.g., Three keys on a red keychain."></textarea>
+                </div>
+                
+                <hr>
+
+                <div class="form-group">
+                    <label for="found-contact-name">Your Name</label>
+                    <input type="text" id="found-contact-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="found-contact-email">Your Contact Email</button>
+                    <input type="email" id="found-contact-email" required>
+                </div>
+
+                <button type="submit" class="btn btn-found">Submit Found Item Report</button>
+            </form>
+        </section>
+    </main>
+    
+    <script src="report.js"></script>
+</body>
+</html>

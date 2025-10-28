@@ -1,0 +1,392 @@
+/* Basic Reset & Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* This now uses the new Google Font and background color */
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa; 
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Main Content Container */
+.container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Form Styling (for report-lost/found pages) */
+.form-section {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    max-width: 800px; /* Constrain form width */
+    margin: 0 auto; /* Center the form */
+}
+
+.form-section h2 {
+    color: #004a99;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input[type="file"] {
+    font-size: 0.9rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 1.5rem 0;
+}
+
+/* Button Styling (Main Button) */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* For <a> tags styled as buttons */
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-found {
+    background-color: #28a745; /* Green for "found" */
+}
+
+.btn-found:hover {
+    background-color: #218838;
+}
+
+/* --- New Navbar Styles --- */
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed; /* Sticks to the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #d9534f; /* UPDATED: Changed color to match 'Lost' red */
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    background-color: #f4f7f6;
+}
+
+/* Navbar Button Colors (Overriding .btn) */
+.btn-nav-lost {
+    background-color: #d9534f; /* "Lost" feed red color */
+    color: #fff;
+}
+.btn-nav-lost:hover { 
+    background-color: #c9302c; /* Darker red on hover */
+    color: #fff; 
+}
+
+.btn-nav-found {
+    background-color: #5cb85c; /* "Found" feed green color */
+    color: #fff;
+}
+.btn-nav-found:hover { 
+    background-color: #449d44; /* Darker green on hover */
+    color: #fff; 
+}
+
+/* This pushes content down from under the fixed navbar */
+.content-pusher {
+    height: 80px; 
+}
+
+/* --- Visual Upgrade Styles (Hero Section) --- */
+.hero {
+    background: linear-gradient(45deg, #C41E3A, #A0182E); /* Cardinal Red gradient */
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    /* We add a negative margin to make it fill the space left by .container padding */
+    margin: -2rem -2rem 0 -2rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap; /* For mobile */
+}
+
+.hero-btn {
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    width: auto; /* Override full width */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between icon and text */
+    border: 2px solid white;
+    transition: all 0.2s ease-in-out;
+}
+
+.hero-btn.btn-lost {
+    background-color: #ffffff; /* Solid white */
+    color: #C41E3A; /* Red text */
+    border-color: #ffffff;
+}
+.hero-btn.btn-lost:hover {
+    background-color: transparent; /* On hover, transparent */
+    color: white; /* On hover, white text */
+}
+
+.hero-btn.btn-found {
+    background-color: #ffffff; /* Solid white */
+    color: #C41E3A; /* Red text */
+    border-color: #ffffff;
+}
+.hero-btn.btn-found:hover {
+    background-color: transparent; /* On hover, transparent */
+    color: white; /* On hover, white text */
+}
+
+.action-buttons {
+    display: none; /* Hide old buttons */
+}
+
+/* === Icon Styles === */
+.icon-svg {
+    vertical-align: middle;
+}
+
+/* --- Form & Card Polish --- */
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="date"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+    outline: none;
+}
+
+.item-card-placeholder {
+    width: 100%;
+    height: 180px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* --- New Two-Column Feed Styles --- */
+.feed-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem; /* Increased gap */
+    margin-top: 2rem; /* Space below hero */
+}
+
+.feed-column h2 { /* This is the .feed-title style */
+    font-size: 1.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Space for icon */
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.lost-title {
+    color: #d9534f;
+    border-bottom: 3px solid #d9534f;
+}
+
+.found-title {
+    color: #5cb85c;
+    border-bottom: 3px solid #5cb85c;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Each column is a single grid */
+    gap: 1.5rem;
+}
+
+/* --- Upgraded Card Styles --- */
+.item-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    overflow: hidden; /* Ensures image corners are rounded */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.lost-card {
+    border-left: 5px solid #d9534f;
+}
+
+.found-card {
+    border-left: 5px solid #28a745;
+}
+
+/* --- Style for Real Images in Cards --- */
+.card-image {
+    width: 100%;
+    height: 200px; /* Increased image height */
+    object-fit: cover; /* This is key: it scales and crops the image */
+}
+
+/* New wrapper for text content in card */
+.card-content {
+    padding: 1rem;
+}
+
+.item-card h3 {
+    padding: 0 0 0.5rem 0;
+    font-size: 1.15rem;
+}
+.lost-card h3 {
+    color: #d9534f; /* Red */
+}
+.found-card h3 {
+    color: #28a745; /* Green */
+}
+
+.item-card p {
+    padding: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.item-card .card-description {
+    padding-bottom: 0;
+    font-style: italic;
+    color: #777;
+}
+
+/* Style for empty feed messages */
+.empty-feed-msg {
+    padding: 1rem;
+    font-style: italic;
+    color: #888;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 900px) {
+    /* Stack columns on mobile */
+    .feed-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Center the form on mobile */
+    .container {
+        padding: 1rem;
+    }
+    
+    /* Adjust hero padding */
+    .hero {
+        padding: 3rem 1rem;
+        margin: -1rem -1rem 0 -1rem;
+    }
+
+    /* Adjust navbar */
+    .navbar {
+        padding: 1rem;
+    }
+    .navbar-logo {
+        font-size: 1.2rem;
+    }
+    .nav-link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+}
+
