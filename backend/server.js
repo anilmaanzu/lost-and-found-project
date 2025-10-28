@@ -1,49 +1,46 @@
-require('dotenv').config(); // This will load your local .env file
+/* === YEH AAPKA SAHI HYBRID SERVER CODE HAI === */
+/* === (Local Database + Cloudinary Images) === */
+
+require('dotenv').config(); // .env file se keys laane ke liye
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
-const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
+const { Pool } = require('pg'); // PostgreSQL ke liye
+const multer = require('multer'); // Image upload ke liye
+const cloudinary = require('cloudinary').v2; // Cloudinary ke liye
 
 const app = express();
-const port = 3000;
 
 // --- MIDDLEWARE ---
-app.use(cors()); 
-app.use(express.json()); 
+app.use(cors());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --- CLOUDINARY CONFIG ---
+// --- CLOUDINARY CONFIG (Yeh .env file se keys lega) ---
 cloudinary.config({ 
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
     api_key: process.env.CLOUDINARY_API_KEY, 
     api_secret: process.env.CLOUDINARY_API_SECRET 
 });
 
+// --- MULTER SETUP (Image ko server ki memory mein rakhega) ---
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// --- DATABASE CONNECTION (PRODUCTION READY) ---
-// This code now works for BOTH local and live (Render)
+// --- DATABASE CONNECTION (Local DB - No SSL!) ---
+// Yeh .env file se aapka local DATABASE_URL lega
+// Ismein SSL block nahi hai, isliye error fix ho jaayega
 const dbPool = new Pool({
-    connectionString: process.env.DATABASE_URL, // This is the key
-    ssl: {
-        rejectUnauthorized: false // Required for Render
-    }
+    connectionString: process.env.DATABASE_URL
 });
+
 
 // --- API ENDPOINTS (ROUTES) ---
 
-// (All your app.get, app.post endpoints...)
-// ... (app.get('/'), app.post('/api/lost'), app.post('/api/found')) ...
-// ... (app.get('/api/found-items'), app.get('/api/lost-items')) ...
-
-// PASTE ALL YOUR ENDPOINTS HERE
 app.get('/', (req, res) => {
-    res.send('Backend server is running!');
+    res.send('Hybrid server (Local DB + Cloudinary) is running!');
 });
 
-// Helper function to handle image upload
+// Helper function (Cloudinary par upload karne ke liye)
 const handleUpload = (buffer) => {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
@@ -57,17 +54,20 @@ const handleUpload = (buffer) => {
     });
 };
 
-// Endpoint for submitting a LOST item
+// Endpoint: LOST item submit karna
 app.post('/api/lost', upload.single('image'), async (req, res) => {
     try {
         const { itemName, category, location, date, description, contactName, contactEmail } = req.body;
-        let imageUrl = null;
+        let imageUrl = null; // Shuruaat mein image URL null hai
 
+        // Agar user ne file upload ki hai
         if (req.file) {
+            // File ko Cloudinary par upload karo
             const uploadResult = await handleUpload(req.file.buffer);
-            imageUrl = uploadResult.secure_url;
+            imageUrl = uploadResult.secure_url; // Cloudinary se mila URL
         }
 
+        // Database mein naya item save karo (imageUrl ke saath)
         const newLostItem = await dbPool.query(
             `INSERT INTO lost_items (item_name, category, lost_location, lost_date, description, contact_name, contact_email, image_url) 
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -82,17 +82,20 @@ app.post('/api/lost', upload.single('image'), async (req, res) => {
     }
 });
 
-// Endpoint for submitting a FOUND item
+// Endpoint: FOUND item submit karna
 app.post('/api/found', upload.single('image'), async (req, res) => {
     try {
         const { itemName, category, location, date, description, contactName, contactEmail } = req.body;
         let imageUrl = null;
 
+        // Agar user ne file upload ki hai
         if (req.file) {
+            // File ko Cloudinary par upload karo
             const uploadResult = await handleUpload(req.file.buffer);
-            imageUrl = uploadResult.secure_url;
+            imageUrl = uploadResult.secure_url; // Cloudinary se mila URL
         }
 
+        // Database mein naya item save karo (imageUrl ke saath)
         const newFoundItem = await dbPool.query(
             `INSERT INTO found_items (item_name, category, found_location, found_date, description, contact_name, contact_email, image_url) 
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -107,7 +110,7 @@ app.post('/api/found', upload.single('image'), async (req, res) => {
     }
 });
 
-// GET ALL FOUND ITEMS
+// Endpoint: Saare FOUND items homepage ke liye laana
 app.get('/api/found-items', async (req, res) => {
     try {
         const allFoundItems = await dbPool.query(
@@ -120,7 +123,7 @@ app.get('/api/found-items', async (req, res) => {
     }
 });
 
-// GET ALL LOST ITEMS
+// Endpoint: Saare LOST items homepage ke liye laana
 app.get('/api/lost-items', async (req, res) => {
     try {
         const allLostItems = await dbPool.query(
@@ -134,8 +137,7 @@ app.get('/api/lost-items', async (req, res) => {
 });
 
 
-// --- START THE SERVER ---
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+// --- SERVER KO START KARNA ---
+app.listen(3000, () => {
+    console.log('Server (Local DB + Cloudinary Images) listening on port 3000');
 });
