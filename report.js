@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- THIS IS THE CRITICAL CHANGE ---
     // This URL points to your LIVE backend server on Render
-    const backendUrl = "PASTE_YOUR_LIVE_RENDER_URL_HERE"; 
+    const backendUrl = "https://lost-and-found-server-bhajan.onrender.com"; 
     // Example: "https://lost-and-found-server-bhajan.onrender.com"
 
     // Helper function to handle form submission
