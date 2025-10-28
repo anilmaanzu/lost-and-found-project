@@ -1,59 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    const lostGallery = document.getElementById('lost-gallery');
+    const foundGallery = document.getElementById('found-gallery');
     
-    const lostGallery = document.getElementById('lost-gallery-container');
-    const foundGallery = document.getElementById('found-gallery-container');
-    const backendUrl = 'http://localhost:3000';
+    // --- THIS IS THE CRITICAL CHANGE ---
+    // This URL points to your LIVE backend server on Render
+    const backendUrl = "PASTE_YOUR_LIVE_RENDER_URL_HERE"; 
+    // Example: "https://lost-and-found-server-bhajan.onrender.com"
 
     // Helper function to create an item card
-    function createItemCard(item, itemType) {
+    function createItemCard(item, type) {
         const card = document.createElement('div');
-        card.className = 'item-card';
+        card.className = `item-card ${type}-card`;
 
-        let dateText, locationText, dateValue, locationValue;
-        if (itemType === 'lost') {
-            dateText = 'Lost On';
-            locationText = 'Last Seen';
-            dateValue = item.lost_date;
-            locationValue = item.lost_location;
+        // Check if image URL exists
+        let cardImage;
+        if (item.image_url) {
+            // Use the full URL from Cloudinary
+            cardImage = `<img src="${item.image_url}" alt="${item.item_name}" class="card-image">`;
         } else {
-            dateText = 'Found On';
-            locationText = 'Found At';
-            dateValue = item.found_date;
-            locationValue = item.found_location;
+            // Fallback placeholder
+            cardImage = `
+                <div class="card-image-placeholder">
+                    <span>No Image</span>
+                </div>
+            `;
         }
-        
-        // Format date to dd/mm/yyyy (Indian standard)
-        const itemDate = new Date(dateValue).toLocaleDateString('en-IN'); 
 
-        // === THIS IS THE UPDATED PART ===
-        // Check if an image_url exists. If yes, use <img>. If not, use placeholder.
-        const imageElement = item.image_url
-            ? `<img src="${item.image_url}" alt="${item.item_name}" class="card-image">`
-            : `<div class="card-image-placeholder"><span>No Image</span></div>`;
-        // === END OF UPDATED PART ===
+        // Format the date
+        const itemDate = new Date(item.lost_date || item.found_date).toLocaleDateString('en-IN');
+        const dateLabel = type === 'lost' ? 'Lost On' : 'Found On';
 
         card.innerHTML = `
-            ${imageElement} 
+            ${cardImage}
             <div class="card-content">
                 <h3>${item.item_name}</h3>
-                <p><strong>${locationText}:</strong> ${locationValue}</p>
-                <p><strong>${dateText}:</strong> ${itemDate}</p>
-                <p class="card-description">${item.description || ''}</p> 
+                <p><strong>Location:</strong> ${item.lost_location || item.found_location}</p>
+                <p><strong>${dateLabel}:</strong> ${itemDate}</p>
+                <p class="card-description">${item.description || 'No description.'}</p>
             </div>
         `;
-        // We add the '|| ""' to description to prevent "null" from showing up
-        
-        card.classList.add(itemType === 'lost' ? 'lost-card' : 'found-card');
         return card;
     }
 
-    // --- Function to load LOST items ---
+    // Function to load LOST items
     async function loadLostItems() {
+        if (!lostGallery) return; // Make sure the element exists
         try {
             const response = await fetch(`${backendUrl}/api/lost-items`);
             const result = await response.json();
+
             if (result.success && result.items.length > 0) {
-                lostGallery.innerHTML = ''; 
+                lostGallery.innerHTML = ''; // Clear loading text
                 result.items.forEach(item => {
                     const card = createItemCard(item, 'lost');
                     lostGallery.appendChild(card);
@@ -62,18 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 lostGallery.innerHTML = '<p class="empty-feed-msg">No lost items reported yet.</p>';
             }
         } catch (error) {
-            console.error('Error loading lost items:', error);
-            lostGallery.innerHTML = '<p class="empty-feed-msg">Could not connect to server.</p>';
+            console.error('Error fetching lost items:', error);
+            lostGallery.innerHTML = '<p class="empty-feed-msg">Could not load lost items.</p>';
         }
     }
 
-    // --- Function to load FOUND items ---
+    // Function to load FOUND items
     async function loadFoundItems() {
+        if (!foundGallery) return; // Make sure the element exists
         try {
             const response = await fetch(`${backendUrl}/api/found-items`);
             const result = await response.json();
+
             if (result.success && result.items.length > 0) {
-                foundGallery.innerHTML = ''; 
+                foundGallery.innerHTML = ''; // Clear loading text
                 result.items.forEach(item => {
                     const card = createItemCard(item, 'found');
                     foundGallery.appendChild(card);
@@ -82,12 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 foundGallery.innerHTML = '<p class="empty-feed-msg">No found items reported yet.</p>';
             }
         } catch (error) {
-            console.error('Error loading found items:', error);
-            foundGallery.innerHTML = '<p class="empty-feed-msg">Could not connect to server.</p>';
+            console.error('Error fetching found items:', error);
+            foundGallery.innerHTML = '<p class="empty-feed-msg">Could not load found items.</p>';
         }
     }
 
-    // --- Load BOTH feeds ---
+    // Load both feeds
     loadLostItems();
     loadFoundItems();
 });
