@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost & Found - Chandigarh University</title>
+    <title>Report Lost Item - Chandigarh University</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,14 +26,17 @@
         <section class="form-section">
             <h2>Report a Lost Item</h2>
             <form id="lost-form">
+                
                 <div class="form-group">
                     <label for="lost-item-name">Item Name</label>
-                    <input type="text" id="lost-item-name" placeholder="e.g., Black iPhone 14" required>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <input type="text" id="lost-item-name" name="itemName" placeholder="e.g., Black iPhone 14" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="lost-category">Category</label>
-                    <select id="lost-category" required>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <select id="lost-category" name="category" required>
                         <option value="">-- Select a Category --</option>
                         <option value="electronics">Electronics</option>
                         <option value="books">Books/Notes</option>
@@ -45,34 +48,40 @@
 
                 <div class="form-group">
                     <label for="lost-location">Last Known Location</label>
-                    <input type="text" id="lost-location" placeholder="e.g., Block 3 Library, 2nd Floor" required>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <input type="text" id="lost-location" name="location" placeholder="e.g., Block 3 Library, 2nd Floor" required>
                 </div>
 
                 <div class="form-group">
                     <label for="lost-date">Date Lost</label>
-                    <input type="date" id="lost-date" required>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <input type="date" id="lost-date" name="date" required>
                 </div>
 
                 <div class="form-group">
                     <label for="lost-image">Upload Image (Optional)</label>
-                    <input type="file" id="lost-image" accept="image/*">
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <input type="file" id="lost-image" name="image" accept="image/*">
                 </div>
 
                 <div class="form-group">
                     <label for="lost-description">Detailed Description</label>
-                    <textarea id="lost-description" rows="3" placeholder="e.g., Has a small crack on the top left, blue case."></textarea>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <textarea id="lost-description" name="description" rows="3" placeholder="e.g., Has a small crack on the top left, blue case."></textarea>
                 </div>
                 
                 <hr>
 
                 <div class="form-group">
                     <label for="lost-contact-name">Your Name</label>
-                    <input type="text" id="lost-contact-name" required>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <input type="text" id="lost-contact-name" name="contactName" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="lost-contact-email">Your Contact Email</label>
-                    <input type="email" id="lost-contact-email" required>
+                    <!-- NAME ATTRIBUTE ADDED -->
+                    <input type="email" id="lost-contact-email" name="contactEmail" required>
                 </div>
 
                 <button type="submit" class="btn">Submit Lost Item Report</button>
@@ -80,6 +89,6 @@
         </section>
     </main>
     
-    <script src="report.js"></script>
+<script src="report.js"></script>
 </body>
 </html>
